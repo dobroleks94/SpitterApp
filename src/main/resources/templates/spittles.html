@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Spitter</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}" ></link>
+</head>
+<body>
+
+<div id="content">
+    <div class="spittleForm">
+        <h1>Spit it out...</h1>
+        <form method="POST" name="spittleForm">
+            <input type="hidden" name="latitude" />
+            <input type="hidden" name="longitude" />
+            <textarea name="message" cols="80" rows="5"></textarea><br/>
+            <input type="submit" value="Add" />
+        </form>
+    </div>
+    <div class="listTitle">
+        <h1>Recent Spittles</h1>
+        <ul class="spittleList">
+            <li th:each="spittle : ${spittleList}"
+                th:id="'spittle_' + ${spittle.id}">
+                <a th:href="@{'/spitter/'+${spittle.spitter.username}}">
+                    <div class="spittleMessage" th:text="${spittle.spitter.username}">name</div>
+                </a>
+                <div class="spittleMessage" th:text="${spittle.message}">Spittle message</div>
+                <div th:if="${spittle.spitter.authorized}">
+                    <a th:href="@{'/spittles/edit?id='+${spittle.id}}">
+                        <button type="button">Edit spittle</button>
+                    </a>
+                </div>
+                <div>
+                    <span class="spittleLocation" th:text="${spittle.time}">
+                        time
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <form method="post" th:action='@{/signout}'>
+            <input type="submit" name="logout" value="Log Out" />
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

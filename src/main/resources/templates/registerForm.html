@@ -1,0 +1,41 @@
+<html lang="en" xmlns:th="http://thymeleaf.com">
+    <head>
+        <title>Spittr</title>
+        <link rel="stylesheet" type="text/css" href="@{/resources/style.css}"/>
+        <style>
+            div.errors{
+                background-color: #ffcccc;
+                border: 2px solid red;
+            }
+            label.error{
+                color: red;
+            }
+            input.error{
+                background-color: #ffcccc;
+            }
+        </style>
+    </head>
+    <body>
+    <h1>Register</h1>
+
+    <form method="post" th:object="${spitter}" enctype="multipart/form-data">
+
+        <label>First Name: </label>
+        <input type="text" th:field="*{firstName}"/><br/>
+
+        <label>Last Name: </label>
+        <input type="text" th:field="*{lastName}"/><br/>
+
+        <label >User Name: </label>
+        <input type="text" th:field="*{username}"/><br/>
+
+        <label>Password: </label>
+        <input type="password" th:field="*{password}"/><br/>
+
+        <label>Email: </label>
+        <input type="email" th:field="*{email}"/><br/>
+
+        <input type="submit" value="Register"/>
+    </form>
+</body>
+</html>

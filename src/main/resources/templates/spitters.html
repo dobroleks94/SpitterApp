@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spitters</title>
+</head>
+<body>
+
+<div class="listTitle">
+    <h1>Spitters</h1>
+    <ul class="spittleList">
+        <li th:each="spitter : ${spitters}">
+            <div>
+                <span th:text="${spitter.username}">username</span><br/>
+                <span th:text="${spitter.firstName}">first</span> <span th:text="${spitter.lastName}">second</span> </br>
+            </div>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

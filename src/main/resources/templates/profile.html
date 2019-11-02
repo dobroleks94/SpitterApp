@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.com">
+<head>
+    <title>Spitter</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"/>
+
+</head>
+    <h2>Your profile</h2>
+
+        <span th:text="${spitter.username}">username</span><br/>
+        <span th:text="${spitter.firstName}">Hui</span> <span th:text="${spitter.lastName}">Zhopa</span> </br>
+    <form method="post" th:action='@{/signout}' >
+        <input type="submit" name="logout" value="Log Out" />
+    </form>
+
+</body>
+</html>
