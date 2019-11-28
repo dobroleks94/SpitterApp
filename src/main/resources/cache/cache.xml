@@ -1,0 +1,10 @@
+<ehcache>
+    <cache name="spittleCache"
+           maxBytesLocalHeap="50m"
+           timeToLiveSeconds="100">
+    </cache>
+    <cache name="spitterCache"
+           maxBytesLocalHeap="50m"
+           timeToLiveSeconds="100">
+    </cache>
+</ehcache>

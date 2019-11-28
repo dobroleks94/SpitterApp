@@ -22,13 +22,12 @@
     <div class="listTitle">
         <h1>Recent Spittles</h1>
         <ul class="spittleList">
-            <li th:each="spittle : ${spittleList}"
-                th:id="'spittle_' + ${spittle.id}">
+            <li th:each="spittle : ${spittleList}">
                 <a th:href="@{'/spitter/'+${spittle.spitter.username}}">
                     <div class="spittleMessage" th:text="${spittle.spitter.username}">name</div>
                 </a>
                 <div class="spittleMessage" th:text="${spittle.message}">Spittle message</div>
-                <div th:if="${spittle.spitter.authorized}">
+                <div > <!--th:if="${spittle.spitter.authorized}"-->
                     <a th:href="@{'/spittles/edit?id='+${spittle.id}}">
                         <button type="button">Edit spittle</button>
                     </a>

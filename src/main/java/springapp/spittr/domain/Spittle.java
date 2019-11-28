@@ -2,13 +2,13 @@ package springapp.spittr.domain;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import sun.security.provider.ConfigFile;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Spittle {
+public class Spittle implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,6 +14,7 @@ import springapp.spittr.data.SpitterRepository;
 import javax.servlet.http.Part;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.sql.SQLException;
 
 @Controller
 @RequestMapping("/spitter")
@@ -36,10 +37,11 @@ public class SpitterController {
         if(error.hasErrors())
             return "registerForm";
 
-        spitterRepository.save(spitter);
-        spitterRepository.addUser(spitter.getUsername(), new BCryptPasswordEncoder().encode(spitter.getPassword()));
-        model.addAttribute("username", spitter.getUsername());
-        model.addFlashAttribute("spitter", spitter);
+            spitterRepository.save(spitter);
+            spitterRepository.addUser(spitter.getUsername(), new BCryptPasswordEncoder().encode(spitter.getPassword()));
+            model.addAttribute("username", spitter.getUsername());
+            model.addFlashAttribute("spitter", spitter);
+
         return "redirect:/login";
     }
 

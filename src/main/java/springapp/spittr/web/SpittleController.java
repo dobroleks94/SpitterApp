@@ -1,17 +1,14 @@
 package springapp.spittr.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springapp.spittr.data.SpitterRepository;
-import springapp.spittr.domain.Spitter;
 import springapp.spittr.domain.Spittle;
 import springapp.spittr.data.SpittleRepository;
-import sun.security.provider.ConfigFile;
-
-import java.awt.print.Pageable;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -54,7 +51,7 @@ public class SpittleController {
 
     @RequestMapping(value = "/{spittle_id}", method = RequestMethod.GET)
     public String spittle(@PathVariable("spittle_id") long spittle_id, Model model){
-        Spittle spittle = spittleRepository.findById(spittle_id).get();
+        Spittle spittle = spittleRepository.findSpittleById(spittle_id).get(0);
         if (spittle == null)
             throw new SpittleNotFoundException();
         model.addAttribute("spittle", spittle);
@@ -65,7 +62,9 @@ public class SpittleController {
     @RequestMapping(method = RequestMethod.GET)
     public String spittles(
             @RequestParam(value="count", defaultValue = "5") int count, Model model, Principal p){
-        spitterRepository.findByUsername(p.getName()).setAuthorized(true);
+        /*try{
+        spitterRepository.findByUsername(p.getName()).setAuthorized(true);}
+        catch (Exception e){}*/
         model.addAttribute(spittleRepository.findOrderedSpittles(count));
         return "spittles";
     }
@@ -78,10 +77,12 @@ public class SpittleController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String editSpittle(@RequestParam("id") Long id,Model model){
-        model.addAttribute("spittleMessage",spittleRepository.findById(id).get());
-        return "edit";
+    @PostFilter("filterObject.spitter.username == principal.username")
+    public List<Spittle> editSpittle(@RequestParam("id") Long id, Model model){
+        return spittleRepository.findSpittleById(id);
     }
+
+
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(@RequestParam("id") Long id, @RequestParam("message") String message, Model model){
         spittleRepository.updateSpittle(message, id);

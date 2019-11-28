@@ -8,11 +8,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Spitter {
+public class Spitter implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,20 +35,16 @@ public class Spitter {
     @Column(name = "email")
     private String email;
 
+    @Transient // because of marshalling error
     @OneToMany(targetEntity = Spittle.class, fetch = FetchType.EAGER, mappedBy = "spitter", cascade = CascadeType.ALL)
-    private List<Spittle> spittleList;
+    private List<Spittle> spittleList = new ArrayList<>();
 
     @Transient
     private boolean authorized;
 
-
-
-
     public boolean isAuthenticated(Principal user){
         return this.username.equals(user.getName()) ? true : false;
     }
-
-
 
     public Spitter(Long id, String username, String password, String firstName, String lastName) {
         this.id = id;

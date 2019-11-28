@@ -2,13 +2,15 @@ package springapp.spittr.data;
 
 import org.springframework.data.jpa.repository.Modifying;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 
 public class SpitterRepositoryImpl implements SpitterSwapper {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
 
     @Override
@@ -20,5 +22,10 @@ public class SpitterRepositoryImpl implements SpitterSwapper {
                                 .setParameter(3, true)
         .executeUpdate();
         em.createNativeQuery(addAuthority).setParameter(1, username).executeUpdate();
+    }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return em;
     }
 }
