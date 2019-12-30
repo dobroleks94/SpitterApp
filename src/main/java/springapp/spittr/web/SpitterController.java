@@ -41,7 +41,6 @@ public class SpitterController {
             spitterRepository.addUser(spitter.getUsername(), new BCryptPasswordEncoder().encode(spitter.getPassword()));
             model.addAttribute("username", spitter.getUsername());
             model.addFlashAttribute("spitter", spitter);
-
         return "redirect:/login";
     }
 

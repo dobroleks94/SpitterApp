@@ -39,10 +39,12 @@ public class RootConfig {
 
     @Bean public SimpleJaxWsServiceExporter jaxWsExporter(){
         SimpleJaxWsServiceExporter exporter = new SimpleJaxWsServiceExporter();
-        exporter.setBaseAddress("http://192.168.56.1:8090/services/");
+        exporter.setBaseAddress("http://192.168.56.4:8090/services/");
         return exporter;
     }
 
+
+    /* Register a servlet, which takes client requests to server from specified url and handles them --- Register cxf servlet */
     @Bean public ServletRegistrationBean registerCXF(){
         return new ServletRegistrationBean(new CXFServlet(), "/services/*");
     }
